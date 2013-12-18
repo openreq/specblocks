@@ -1,0 +1,1145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Thomas Noetzold (tnoetzold@acm.org)" />
+  <title>Cross-Cutting User Interface Requirements - Sample Specification</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="ccuireq.css" type="text/css" />
+</head>
+<body>
+<div id="header">
+<h1 class="title">Cross-Cutting User Interface Requirements - Sample Specification</h1>
+<h2 class="author">Thomas Noetzold (tnoetzold@acm.org)</h2>
+<h3 class="date">28-02-2009, revised 18-12-2013</h3>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#preface"><span class="toc-section-number">1</span> PREFACE</a></li>
+<li><a href="#introduction"><span class="toc-section-number">2</span> INTRODUCTION</a><ul>
+<li><a href="#objective"><span class="toc-section-number">2.1</span> Objective</a></li>
+<li><a href="#general-approach"><span class="toc-section-number">2.2</span> General Approach</a></li>
+<li><a href="#assumptions"><span class="toc-section-number">2.3</span> Assumptions</a></li>
+<li><a href="#definitions-glossary"><span class="toc-section-number">2.4</span> Definitions (Glossary)</a></li>
+</ul></li>
+<li><a href="#cross-cutting-user-interface-requirements"><span class="toc-section-number">3</span> CROSS-CUTTING USER INTERFACE REQUIREMENTS</a><ul>
+<li><a href="#structure"><span class="toc-section-number">3.1</span> Structure</a><ul>
+<li><a href="#application"><span class="toc-section-number">3.1.1</span> Application</a></li>
+<li><a href="#user-session"><span class="toc-section-number">3.1.2</span> User Session</a></li>
+<li><a href="#screen-flow"><span class="toc-section-number">3.1.3</span> Screen Flow</a></li>
+<li><a href="#screen"><span class="toc-section-number">3.1.4</span> Screen</a></li>
+<li><a href="#section"><span class="toc-section-number">3.1.5</span> Section</a></li>
+<li><a href="#component"><span class="toc-section-number">3.1.6</span> Component</a></li>
+<li><a href="#control"><span class="toc-section-number">3.1.7</span> Control</a></li>
+</ul></li>
+<li><a href="#presentation"><span class="toc-section-number">3.2</span> Presentation</a><ul>
+<li><a href="#desktop"><span class="toc-section-number">3.2.1</span> Desktop</a></li>
+<li><a href="#interaction-between-workspaces"><span class="toc-section-number">3.2.2</span> Interaction between Workspaces</a></li>
+<li><a href="#screen-1"><span class="toc-section-number">3.2.3</span> Screen</a></li>
+<li><a href="#fields"><span class="toc-section-number">3.2.4</span> Fields</a></li>
+</ul></li>
+<li><a href="#controls"><span class="toc-section-number">3.3</span> Controls</a><ul>
+<li><a href="#label"><span class="toc-section-number">3.3.1</span> Label</a></li>
+<li><a href="#field"><span class="toc-section-number">3.3.2</span> Field</a></li>
+<li><a href="#choice"><span class="toc-section-number">3.3.3</span> Choice</a></li>
+<li><a href="#command"><span class="toc-section-number">3.3.4</span> Command</a></li>
+<li><a href="#message-area"><span class="toc-section-number">3.3.5</span> Message Area</a></li>
+<li><a href="#group"><span class="toc-section-number">3.3.6</span> Group</a></li>
+</ul></li>
+<li><a href="#components"><span class="toc-section-number">3.4</span> Components</a><ul>
+<li><a href="#user-session-view"><span class="toc-section-number">3.4.1</span> User Session View</a></li>
+<li><a href="#amount"><span class="toc-section-number">3.4.2</span> Amount</a></li>
+<li><a href="#currency-amount"><span class="toc-section-number">3.4.3</span> Currency Amount</a></li>
+<li><a href="#partner-id"><span class="toc-section-number">3.4.4</span> Partner ID</a></li>
+<li><a href="#account"><span class="toc-section-number">3.4.5</span> Account</a></li>
+<li><a href="#date-1"><span class="toc-section-number">3.4.6</span> Date</a></li>
+<li><a href="#frequency"><span class="toc-section-number">3.4.7</span> Frequency</a></li>
+<li><a href="#table-view"><span class="toc-section-number">3.4.8</span> Table View</a></li>
+<li><a href="#table-editor"><span class="toc-section-number">3.4.9</span> Table Editor</a></li>
+<li><a href="#tree-table-view"><span class="toc-section-number">3.4.10</span> Tree Table View</a></li>
+<li><a href="#tree-table-editor"><span class="toc-section-number">3.4.11</span> Tree Table Editor</a></li>
+<li><a href="#message-box"><span class="toc-section-number">3.4.12</span> Message Box</a></li>
+<li><a href="#notification-list"><span class="toc-section-number">3.4.13</span> Notification List</a></li>
+<li><a href="#notification"><span class="toc-section-number">3.4.14</span> Notification</a></li>
+<li><a href="#calendar"><span class="toc-section-number">3.4.15</span> Calendar</a></li>
+<li><a href="#calculator"><span class="toc-section-number">3.4.16</span> Calculator</a></li>
+<li><a href="#search-criteria-editor"><span class="toc-section-number">3.4.17</span> Search Criteria Editor</a></li>
+<li><a href="#selection-list"><span class="toc-section-number">3.4.18</span> Selection List</a></li>
+<li><a href="#detail-view"><span class="toc-section-number">3.4.19</span> Detail View</a></li>
+<li><a href="#detail-editor"><span class="toc-section-number">3.4.20</span> Detail Editor</a></li>
+<li><a href="#default-command-bars"><span class="toc-section-number">3.4.21</span> Default Command Bars</a></li>
+<li><a href="#screen-flow-progress-view"><span class="toc-section-number">3.4.22</span> Screen Flow Progress View</a></li>
+<li><a href="#many-from-many-selection"><span class="toc-section-number">3.4.23</span> Many-from-many Selection</a></li>
+<li><a href="#configuration-editor"><span class="toc-section-number">3.4.24</span> Configuration Editor</a></li>
+<li><a href="#screen-flow-shortcut"><span class="toc-section-number">3.4.25</span> Screen Flow Shortcut</a></li>
+<li><a href="#augmented-data-view-and-editor"><span class="toc-section-number">3.4.26</span> Augmented Data View and Editor</a></li>
+<li><a href="#graph-view"><span class="toc-section-number">3.4.27</span> Graph View</a></li>
+<li><a href="#image-view"><span class="toc-section-number">3.4.28</span> Image View</a></li>
+<li><a href="#help-browser"><span class="toc-section-number">3.4.29</span> Help Browser</a></li>
+<li><a href="#desktop-layout-bar"><span class="toc-section-number">3.4.30</span> Desktop Layout Bar</a></li>
+<li><a href="#desktop-configuration-editor"><span class="toc-section-number">3.4.31</span> Desktop Configuration Editor</a></li>
+<li><a href="#value-selector"><span class="toc-section-number">3.4.32</span> Value Selector</a></li>
+</ul></li>
+<li><a href="#binding"><span class="toc-section-number">3.5</span> Binding</a></li>
+<li><a href="#validation"><span class="toc-section-number">3.6</span> Validation</a></li>
+<li><a href="#internationalization"><span class="toc-section-number">3.7</span> Internationalization</a></li>
+<li><a href="#printing"><span class="toc-section-number">3.8</span> Printing</a></li>
+<li><a href="#miscellaneous"><span class="toc-section-number">3.9</span> Miscellaneous</a><ul>
+<li><a href="#tab-sequence"><span class="toc-section-number">3.9.1</span> Tab-Sequence</a></li>
+<li><a href="#short-cuts"><span class="toc-section-number">3.9.2</span> Short-Cuts</a></li>
+<li><a href="#tool-tips"><span class="toc-section-number">3.9.3</span> Tool Tips</a></li>
+<li><a href="#branding"><span class="toc-section-number">3.9.4</span> Branding</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#user-interface-patterns"><span class="toc-section-number">4</span> USER INTERFACE PATTERNS</a><ul>
+<li><a href="#screen-patterns"><span class="toc-section-number">4.1</span> Screen Patterns</a><ul>
+<li><a href="#search-screen"><span class="toc-section-number">4.1.1</span> Search Screen</a></li>
+<li><a href="#masterdetail-screen"><span class="toc-section-number">4.1.2</span> Master/Detail Screen</a></li>
+<li><a href="#dashboard"><span class="toc-section-number">4.1.3</span> Dashboard</a></li>
+<li><a href="#listdetail-screen"><span class="toc-section-number">4.1.4</span> List/Detail Screen</a></li>
+</ul></li>
+<li><a href="#screen-flow-patterns"><span class="toc-section-number">4.2</span> Screen Flow Patterns</a><ul>
+<li><a href="#basic-inquiry-edit"><span class="toc-section-number">4.2.1</span> Basic Inquiry / Edit</a></li>
+<li><a href="#detail-view-1"><span class="toc-section-number">4.2.2</span> Detail View</a></li>
+<li><a href="#detail-viewedit"><span class="toc-section-number">4.2.3</span> Detail View/Edit</a></li>
+<li><a href="#selection-list-1"><span class="toc-section-number">4.2.4</span> Selection List</a></li>
+<li><a href="#basic-inquiry-edit-variant"><span class="toc-section-number">4.2.5</span> Basic Inquiry / Edit Variant</a></li>
+<li><a href="#basic-drill-down"><span class="toc-section-number">4.2.6</span> Basic Drill-Down</a></li>
+<li><a href="#multi-step-edit-flow"><span class="toc-section-number">4.2.7</span> Multi-Step Edit Flow</a></li>
+<li><a href="#value-selection"><span class="toc-section-number">4.2.8</span> Value Selection</a></li>
+<li><a href="#detail-selection"><span class="toc-section-number">4.2.9</span> Detail Selection</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#common-use-cases"><span class="toc-section-number">5</span> COMMON USE CASES</a><ul>
+<li><a href="#application-start-up"><span class="toc-section-number">5.1</span> Application start-up</a><ul>
+<li><a href="#description"><span class="toc-section-number">5.1.1</span> Description</a></li>
+<li><a href="#basic-flow"><span class="toc-section-number">5.1.2</span> Basic Flow</a></li>
+<li><a href="#alternative-flows"><span class="toc-section-number">5.1.3</span> Alternative Flows</a></li>
+</ul></li>
+<li><a href="#login"><span class="toc-section-number">5.2</span> Login</a><ul>
+<li><a href="#description-1"><span class="toc-section-number">5.2.1</span> Description</a></li>
+<li><a href="#basic-flow-1"><span class="toc-section-number">5.2.2</span> Basic Flow</a></li>
+<li><a href="#alternative-flows-1"><span class="toc-section-number">5.2.3</span> Alternative Flows</a></li>
+</ul></li>
+<li><a href="#change-password"><span class="toc-section-number">5.3</span> Change Password</a><ul>
+<li><a href="#description-2"><span class="toc-section-number">5.3.1</span> Description</a></li>
+<li><a href="#basic-flow-2"><span class="toc-section-number">5.3.2</span> Basic Flow</a></li>
+<li><a href="#alternative-flows-2"><span class="toc-section-number">5.3.3</span> Alternative Flows</a></li>
+</ul></li>
+<li><a href="#establish-user-session"><span class="toc-section-number">5.4</span> Establish user session</a><ul>
+<li><a href="#description-3"><span class="toc-section-number">5.4.1</span> Description</a></li>
+<li><a href="#basic-flow-3"><span class="toc-section-number">5.4.2</span> Basic Flow</a></li>
+<li><a href="#alternative-flows-3"><span class="toc-section-number">5.4.3</span> Alternative Flows</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#appendix-requirements-priorities"><span class="toc-section-number">6</span> APPENDIX: REQUIREMENTS PRIORITIES</a></li>
+</ul>
+</div>
+<h1 id="preface"><a href="#preface"><span class="header-section-number">1</span> PREFACE</a></h1>
+<p>This document is a sample specification for the cross-cutting user interface requirements of a (fictitious) business information system.</p>
+<p>Although the individual requirements have been inspired by a number of different applications, the general idea behind them is that of a largely data-driven application for some financial industry customer. I have tried to include as many requirements as possible because I think it will be easier to cut than to add, when re-using this document for a new project. The downside is that some requirements are not quite consistent.</p>
+<p>Many requirements are fairly high-level and would need to be discussed and/or detailed before they could be implemented. Also, it would probably help to provide more illustrations or mock-ups.</p>
+<p>This document is not intended to be written up front in a project. Instead, it should be used to collect and adapt cross-cutting requirements as they emerge.</p>
+<p>This approach has proven itself useful in several projects in the recent years.</p>
+<p>If you find problems, inconsistencies or errors, please help to improve this document, by posting an issue or pull request on <a href="https://github.com/openreq/specblocks">github</a>.</p>
+<p>This document is licensed under a Creative Commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">Attribution-ShareAlike</a> 4.0 International <a href="http://creativecommons.org/licenses/by-sa/4.0/legalcode">License</a>.</p>
+<h1 id="introduction"><a href="#introduction"><span class="header-section-number">2</span> INTRODUCTION</a></h1>
+<h2 id="objective"><a href="#objective"><span class="header-section-number">2.1</span> Objective</a></h2>
+<p>The purpose of this document is to define the cross-cutting requirements for the user interface elements that the application must provide.</p>
+<p>We describe the cross-cutting requirements separately from the specific application requirements, such as individual screens and dialogues in order to:</p>
+<ul>
+<li>avoid redundancies,</li>
+<li>ensure consistency,</li>
+<li>make potential for re-use visible</li>
+</ul>
+<p>across the entire application.</p>
+<p>Also, this document defines the standard terminology to be used across all user interface descriptions.</p>
+<h2 id="general-approach"><a href="#general-approach"><span class="header-section-number">2.2</span> General Approach</a></h2>
+<p>An important principle, used in this document, is the separation of semantics (structure and behaviour) from presentation (layout and design) when describing user interface requirements.</p>
+<p>As an example, consider a user interface element, which is to provide a choice between three options. This could be implemented, for example, as three radio buttons, a drop-down list or a regular list.</p>
+<div class="figure">
+<img src="images/choice_single.png" alt="Same choice - three different presentations" /><p class="caption">Same choice - three different presentations</p>
+</div>
+<p>The effect for the application would be the same in all three implementations: The user is presented with a choice and picks one option. We will therefore simply describe this element as a choice, when describing a concrete screen. This allows us to defer or delegate the decision, which presentation exactly we will use. Also we can later change that decision without causing a structural change.</p>
+<h2 id="assumptions"><a href="#assumptions"><span class="header-section-number">2.3</span> Assumptions</a></h2>
+<p>The system supports multi-tenancy. Some features of the user interface will be configurable per tenant, as described below.</p>
+<p>The UI will be made available as a stand-alone application for the operating systems supported and as a web application which runs in the supported browsers.</p>
+<h2 id="definitions-glossary"><a href="#definitions-glossary"><span class="header-section-number">2.4</span> Definitions (Glossary)</a></h2>
+<p>The following terms will be used to describe the user interface. The definitions are used later in this document to describe the requirements in detail.</p>
+<dl>
+<dt>Application</dt>
+<dd><p>From a user’s perspective the application is a role-specific collection of screen flows, which may be started as a single application in the terms of the operating system or the browser that it runs on. It is represented by the desktop.</p>
+</dd>
+<dt>User Session</dt>
+<dd><p>A user session starts when the user is authenticated and ends when the user is logged out or the application is terminated or times out. It is represented by the user session view.</p>
+</dd>
+<dt>Screen Flow</dt>
+<dd><p>A screen flow is a collection of one or more screens and their associated behaviour. It is started by a command and represented by one or more workspaces.</p>
+</dd>
+<dt>Screen</dt>
+<dd><p>A screen is a collection of controls or components. It may be split into two or more sections. A screen is displayed in a workspace.</p>
+</dd>
+<dt>Section</dt>
+<dd><p>A section is a logical grouping of user interface elements on a screen. It is represented by a box, a shutter or a tab.</p>
+</dd>
+<dt>Desktop</dt>
+<dd><p>The desktop is the main application window. It contains other elements such as a navigator, workspaces and a status bar and defines their layout.</p>
+</dd>
+<dt>Navigator</dt>
+<dd><p>A navigator is an area displaying a hierarchical list of commands, which serve to select screen flows. A single command may open more than one workspace.</p>
+</dd>
+<dt>Workspace</dt>
+<dd><p>A workspace is an area, where a screen flow may be displayed. The primary workspace displays the main currently active screen flow. The secondary and further workspaces display additional open screen flows.</p>
+</dd>
+<dt>Control</dt>
+<dd><p>A control is a basic user interface element, such as a label, a field, a choice or a command. Each control may define any number of events which may in turn invoke an action.</p>
+</dd>
+<dt>Component</dt>
+<dd><p>A Component is a complex user interface element composed of controls and/or other components. It may define its own events.</p>
+</dd>
+<dt>Action</dt>
+<dd><p>An action is the implementation of behaviour such as making a service call to request or update data, performing a calculation or navigating somewhere else. Actions may be invoked by events. They may themselves raise events which represent the outcomes.</p>
+</dd>
+<dt>Command</dt>
+<dd><p>A command is a user interface element with the only purpose to invoke an action. It may be represented as a button, a link or a menu item.</p>
+</dd>
+<dt>Event</dt>
+<dd><p>The behaviour of the user interface is triggered by events. Controls, Components and Actions may all raise events. Each event may trigger an action, which implements the behaviour.</p>
+</dd>
+</dl>
+<h1 id="cross-cutting-user-interface-requirements"><a href="#cross-cutting-user-interface-requirements"><span class="header-section-number">3</span> CROSS-CUTTING USER INTERFACE REQUIREMENTS</a></h1>
+<p>This section describes the cross-cutting user interface requirements as they were distilled from the application requirements.</p>
+<h2 id="structure"><a href="#structure"><span class="header-section-number">3.1</span> Structure</a></h2>
+<p>The structure of the application is a simple hierarchy of elements, as described below.</p>
+<div class="figure">
+<img src="images/structure.png" alt="Structure of the application" /><p class="caption">Structure of the application</p>
+</div>
+<h3 id="application"><a href="#application"><span class="header-section-number">3.1.1</span> Application</a></h3>
+<p>From a user’s perspective the application is a collection of screen flows specific to a role (or combination of roles), which may be started in the standard way that the operating system provides (stand-alone application), or by following a hyperlink (web application).</p>
+<p>The tenant can configure the packaging of screen flows into applications. The user’s roles may further restrict this selection. The application that the user sees will be configured to include all functionality relevant to her or his roles.</p>
+<p>An application is represented by the desktop, which determines the layout of the application windows.</p>
+<p>The application will prompt the user for confirmation before closing. Partially complete screen flows will also prompt for confirmation before closing. All prompts must be confirmed before the closing action is taken. If the user cancels any confirmation the entire closing action will be cancelled.</p>
+<h3 id="user-session"><a href="#user-session"><span class="header-section-number">3.1.2</span> User Session</a></h3>
+<p>At application start-up, a user session with the application is established. The user session starts when the user is authenticated and ends when the user is logged out or the application is terminated or times out.</p>
+<p>An explicit login may or may not be required, depending on whether the user is authenticated by other means, such as some single sign-on solution, or not. Multiple concurrent sessions using the same user identification are not allowed within the same application. However, the user may have concurrent sessions in different applications.</p>
+<p>A user session is represented by the user session view.</p>
+<p>When a session is established, the user is presented with a choice of screen flows available to her or his roles.</p>
+<h3 id="screen-flow"><a href="#screen-flow"><span class="header-section-number">3.1.3</span> Screen Flow</a></h3>
+<p>A screen flow is a collection of one or more screens and their associated behaviour, represented by a command in the navigator. Its behaviour is invoked by actions which are triggered by events on a screen.</p>
+<p>Screen flows may be nested. There may be flows which are accessible only from a higher level flow. Flows may also contain no screen at all, but only actions.</p>
+<p>The users may start one or more of the screen flows available to them (depending on their access rights and the current context) at any time. Each screen flow remains active until it ends or until the user session ends.</p>
+<p>The available screen flows are presented as commands in the navigator. The screen flows may be grouped in a single list or under a hierarchy of headings. A single command may open more than one screen flow.</p>
+<p>Screen flows may interact with each other. They may access common data held in the user session context. A screen flow may publish events which may trigger actions on another screen flow. A screen flow may interact with the desktop using a service interface provided by the desktop (see below).</p>
+<p>The steps in a screen flow may be represented by a screen flow progress indicator, together with the information whether the steps are completed or not.</p>
+<p>Multiple concurrent screen flows of the same type are allowed unless limited by configuration.</p>
+<p>A screen flow may call a second instance of itself as a sub-flow.</p>
+<p>Every screen flow that calls an action which updates data needs to provide a summary screen, based on a validated request message. That screen may be displayed to the referee by a referrals screen flow.</p>
+<p>A screen flow will prompt the user for confirmation before closing if it is in a modified or incomplete state.</p>
+<h3 id="screen"><a href="#screen"><span class="header-section-number">3.1.4</span> Screen</a></h3>
+<p>A screen is a collection of controls or components. It may be split into two or more sections. A screen is displayed in a workspace.</p>
+<p>Commands on a screen are considered to relate to the whole screen. For example, a submit command on a screen will submit all data from every section of the screen to a service.</p>
+<h3 id="section"><a href="#section"><span class="header-section-number">3.1.5</span> Section</a></h3>
+<p>A section is a logical grouping of user interface elements on a screen.</p>
+<p>If a screen has sections and there are commands defined as belonging to a section, these commands are considered to relate only to that section, not to the whole screen. For example, a recalculate command on a section may recalculate some value based on the data in that section, but the data is not submitted until the whole screen is submitted.</p>
+<h3 id="component"><a href="#component"><span class="header-section-number">3.1.6</span> Component</a></h3>
+<p>A Component is a complex user interface element composed of controls and/or other components.</p>
+<h3 id="control"><a href="#control"><span class="header-section-number">3.1.7</span> Control</a></h3>
+<p>A control is a basic user interface element, which is not decomposed further, such as a label, a field, a choice or a command.</p>
+<h2 id="presentation"><a href="#presentation"><span class="header-section-number">3.2</span> Presentation</a></h2>
+<h3 id="desktop"><a href="#desktop"><span class="header-section-number">3.2.1</span> Desktop</a></h3>
+<p>The desktop represents the application and the user session. It is displayed in a standard operating system or browser window. The window title is the name of the application. The default layout is configured by the developer and is loaded when the application is started for the first time.</p>
+<div class="figure">
+<img src="images/desktop.png" alt="Desktop Elements" /><p class="caption">Desktop Elements</p>
+</div>
+<p>The desktop contains the following elements:</p>
+<ul>
+<li>Tool Bar</li>
+<li>Navigator</li>
+<li>Primary Workspace</li>
+<li>Secondary Workspace</li>
+<li>Notification Area</li>
+<li>Status Bar</li>
+</ul>
+<p>The general layout of the desktop is fixed but the individual parts may be displayed or hidden. A component is provided, which allows the user to switch between different layouts rapidly.</p>
+<p>As a default, the tool bar is displayed on the top. The navigator is displayed on the left. The primary workspace is displayed in the centre. The secondary workspace is displayed on the right with the notification area below. Additional workspaces may be displayed below the existing ones. A workspace may be moved by dragging it to a different position, where its layout may change. The status bar is displayed at the bottom.</p>
+<p>If the desktop is configured so that the user can change the layout, that layout may be saved by the user from one user session to the next.</p>
+<p>The desktop offers a service interface for all aspects of it that may be controlled by a screen flow.</p>
+<h4 id="tool-bar"><a href="#tool-bar"><span class="header-section-number">3.2.1.1</span> Tool Bar</a></h4>
+<p>The tool bar displays the Desktop Layout Bar. Also, it displays an area, where a workspace may be dragged and dropped. There the workspace is represented as a command and the workspace is closed. Executing the command from the tool bar will subsequently open the workspace in its last position.</p>
+<p>The tool bar may display a drop-down to select “tools”. These are common screen flows to be used in different contexts.</p>
+<p>The tool bar may display the user session view component (see section on components).</p>
+<div class="figure">
+<img src="images/toolbar.png" alt="Tool Bar" /><p class="caption">Tool Bar</p>
+</div>
+<p>The tool bar will persist between sessions.</p>
+<h4 id="navigator"><a href="#navigator"><span class="header-section-number">3.2.1.2</span> Navigator</a></h4>
+<p>The navigator is a window displaying a list or tree-view which serves to select a screen flow.</p>
+<p>Screen flows may be enabled or disabled, dependent on any context data such as the status of connected systems, time of day, or country.</p>
+<p>The navigator may display the screen flow shortcut component (see section on components).</p>
+<p>For applications involving a large number of screen flows, a possibility to search, filter and sort the list or tree view is required. This feature may switched on or off by the user or by configuration.</p>
+<div class="figure">
+<img src="images/navigator.png" alt="Navigator" /><p class="caption">Navigator</p>
+</div>
+<h4 id="primary-workspace"><a href="#primary-workspace"><span class="header-section-number">3.2.1.3</span> Primary workspace</a></h4>
+<p>The primary workspace is the central area of the desktop, where the main currently active screen flow is displayed.</p>
+<h4 id="secondary-and-further-workspaces"><a href="#secondary-and-further-workspaces"><span class="header-section-number">3.2.1.4</span> Secondary and further workspaces</a></h4>
+<p>Secondary and further workspaces serve to display additional screen flows which run in parallel with the main screen flow or helper windows for things like an application-specific calculator.</p>
+<h4 id="pop-up-workspaces"><a href="#pop-up-workspaces"><span class="header-section-number">3.2.1.5</span> Pop-up workspaces</a></h4>
+<p>From each workspace, a modal pop-up workspace may be opened, where a sub-flow of the original screen flow may be displayed. The pop-up workspace is modal to the workspace that created it. Work on the original workspace can continue only after the pop-up workspace is closed.</p>
+<div class="figure">
+<img src="images/pop-up.png" alt="Pop-up Workspace" /><p class="caption">Pop-up Workspace</p>
+</div>
+<h4 id="notification-area"><a href="#notification-area"><span class="header-section-number">3.2.1.6</span> Notification area</a></h4>
+<p>The notification area serves to display the notification list at the bottom of the a secondary workspace.</p>
+<h4 id="status-bar"><a href="#status-bar"><span class="header-section-number">3.2.1.7</span> Status bar</a></h4>
+<p>The status bar is an area to display status information relevant to the application. Examples include the status of connected systems and device status (printer online/offline/printing). A progress indicator, indicating the progress of the screen flow currently displayed in the primary workspace, may be displayed here. The status bar is displayed at the bottom of the main application window.</p>
+<h3 id="interaction-between-workspaces"><a href="#interaction-between-workspaces"><span class="header-section-number">3.2.2</span> Interaction between Workspaces</a></h3>
+<p>There may be dependencies between content displayed in different workspaces (primary, secondary and pop-up).</p>
+<p>A screen flow may be defined to be displayed in any of the workspaces.</p>
+<p>A screen flow which is defined to be displayed in the primary workspace may not be displayed in the secondary workspace; it may only be minimized and put on the toolbar.</p>
+<p>If another primary screen flow is opened, while one is already open, it will minimize the already open screen flow currently displayed in the primary workspace and put it on the toolbar.</p>
+<p>If a primary screen flow opens dependant sub-flows in the secondary workspace, these will be minimized together with the primary screen flow.</p>
+<p>If a screen flow is displayed in the secondary workspace, which is opened independently from any primary screen flow, it will not be minimized together with the primary screen flow.</p>
+<h3 id="screen-1"><a href="#screen-1"><span class="header-section-number">3.2.3</span> Screen</a></h3>
+<p>The following default layouts may be applied to a screen: single space, one column or two columns. The commands on a screen that pertain to the whole screen are displayed on a clearly separated command bar.</p>
+<h4 id="free-format-layout"><a href="#free-format-layout"><span class="header-section-number">3.2.3.1</span> Free format layout</a></h4>
+<p>The screen offers a single space where controls and components are displayed as they were manually positioned.</p>
+<h4 id="one-column-layout"><a href="#one-column-layout"><span class="header-section-number">3.2.3.2</span> One column layout</a></h4>
+<p>Labels and fields are displayed in one column each.</p>
+<h4 id="two-columns-layout"><a href="#two-columns-layout"><span class="header-section-number">3.2.3.3</span> Two columns layout</a></h4>
+<p>Labels and fields are displayed in two columns each.</p>
+<h4 id="sections-tabs"><a href="#sections-tabs"><span class="header-section-number">3.2.3.4</span> Sections / Tabs</a></h4>
+<p>Every screen may be sectioned. Each section may have its own layout and commands. Sections are rectangular and fill the entire width of the screen.</p>
+<div class="figure">
+<img src="images/sections.png" alt="Sections" /><p class="caption">Sections</p>
+</div>
+<p>A Section is represented by a group (box), shutter or tab. Sections may not be nested.</p>
+<h3 id="fields"><a href="#fields"><span class="header-section-number">3.2.4</span> Fields</a></h3>
+<p>Per application, a default layout strategy may be defined for each field type. That strategy may take into account the field length defined in schema, as well as the screen layout and other factors. Individual screen layouts may override that strategy.</p>
+<h2 id="controls"><a href="#controls"><span class="header-section-number">3.3</span> Controls</a></h2>
+<p>Controls are user interface elements which may not be decomposed into further parts. They are described here according to their function, independent of presentation. Each control may define any number of events which may in turn invoke an action.</p>
+<h3 id="label"><a href="#label"><span class="header-section-number">3.3.1</span> Label</a></h3>
+<p>A label is a static text attached to any of the other elements or used stand-alone. Thus, a label may be attached to a single user interface element, a group of elements, or no other element at all. It may have a graphical representation associated with it, in which case only the graphic may be rendered and the label text may be displayed as tool tip. Both graphic and text are language dependent.</p>
+<h3 id="field"><a href="#field"><span class="header-section-number">3.3.2</span> Field</a></h3>
+<p>A field is a user interface element to display and/or edit data. Fields may be editable, read-only, mandatory, optional, or mandatory depending on a secondary attribute (for example, an employers address is mandatory if the customer is employed else not.)</p>
+<div class="figure">
+<img src="images/fields.png" alt="Field Types" /><p class="caption">Field Types</p>
+</div>
+<p>A field may be visible or invisible, editable or read-only depending on context.</p>
+<p>A field may depend on another field, which means that when the content of the primary field is changed, the content (and possibly the format) of the secondary field is changed also or the secondary field is displayed or hidden.</p>
+<p>Cutting and pasting complete or partial field content within a field and from one field to another are supported.</p>
+<h4 id="text"><a href="#text"><span class="header-section-number">3.3.2.1</span> Text</a></h4>
+<p>Text fields serve to display and/or edit character data. A system-wide maximum length may be configured to assure that database restrictions are met. In addition, a length and a number of lines for display (default is 1) may be defined for each text field.</p>
+<p>Multi-line text fields support the use of Enter to get a new line rather than executing the default command for the screen.</p>
+<p>Text fields support the display and (optionally) the input of all characters as represented within Unicode. This support depends upon the capabilities of the operating environment. Fields with different directions and character sets may be mixed on a single screen.</p>
+<p>Text fields may be restricted to character sets such as the S.W.I.F.T. character sets (the S.W.I.F.T. character set, the EDIFACT level A character set (ISO 9735) and the S.W.I.F.T. extended character set / Information Service Character Set), upper case or lower case characters only, or other character sets. This must be specified by the underlying data schema.</p>
+<p>On a text field, a property may be set, so that the characters are not displayed, but replacement symbols are displayed instead. One use is for the entry of a password.</p>
+<h4 id="number"><a href="#number"><span class="header-section-number">3.3.2.2</span> Number</a></h4>
+<p>Numbers are displayed with the configured formatting for separators and decimal places, independent of input. Number formatting (for decimal places and separators) is locale-dependent. Lakh and crore numbering systems are supported.</p>
+<h4 id="date"><a href="#date"><span class="header-section-number">3.3.2.3</span> Date</a></h4>
+<p>The Date Field supports locale-specific formatting.</p>
+<h4 id="image"><a href="#image"><span class="header-section-number">3.3.2.4</span> Image</a></h4>
+<p>The Image Field serves to display an image in JPEG or PNG format.</p>
+<h3 id="choice"><a href="#choice"><span class="header-section-number">3.3.3</span> Choice</a></h3>
+<p>A choice is a user interface element which enables the user to make a selection from predefined options. Choices may be mandatory or optional. A default may be defined.</p>
+<p>For large lists, a subset and a full set may be displayed. The subset is normally displayed. The user executes a command to call up the full set. The command is displayed below the last entry of the list (similar to the way additional menu items are made available in Microsoft Office). The subset includes the entries most recently chosen by the user. The maximum size of the subset is the same as the size (maximum visible lines) defined for the choice.</p>
+<p>Drop-downs and Lists may have one or more columns. The content may vary depending on context.</p>
+<p>A service will provide the list elements for all enumeration types. These may be cached by the application.</p>
+<p>An entry of a drop-down may be selected by typing in enough letters (may be more than one) to make the search result unique, based on the entries in the first or only column.</p>
+<p>A secondary choice may depend upon a primary choice in such a way that the values of the secondary choice change when a different entry is selected from the primary choice.</p>
+<h4 id="boolean-choice"><a href="#boolean-choice"><span class="header-section-number">3.3.3.1</span> Boolean Choice</a></h4>
+<p>The boolean choice component provides a choice between two values (Yes/No, True/False). May be represented as Checkbox, Drop-down, List or Radio Button Group.</p>
+<div class="figure">
+<img src="images/choice_boolean.png" alt="Boolean Choice Presentations" /><p class="caption">Boolean Choice Presentations</p>
+</div>
+<h4 id="single-choice"><a href="#single-choice"><span class="header-section-number">3.3.3.2</span> Single Choice</a></h4>
+<p>The single choice component provides a choice of one value from a list. An additional choice of “none” may optionally be provided. May be represented as Drop-down, List or Radio Button Group.</p>
+<div class="figure">
+<img src="images/choice_single.png" alt="Single Choice Presentations" /><p class="caption">Single Choice Presentations</p>
+</div>
+<h4 id="multiple-choice"><a href="#multiple-choice"><span class="header-section-number">3.3.3.3</span> Multiple Choice</a></h4>
+<p>The multiple choice component provides a choice of multiple values from a list. Additional choices for “none” or “all” may optionally be provided. Optionally, one selection can be marked as “leading”. May be represented as a table, list or check-box group.</p>
+<div class="figure">
+<img src="images/choice_multiple.png" alt="Multiple Choice Presentations" /><p class="caption">Multiple Choice Presentations</p>
+</div>
+<h3 id="command"><a href="#command"><span class="header-section-number">3.3.4</span> Command</a></h3>
+<p>A command is a user interface element with the only purpose to invoke an action. It may be represented as a button, a link or a menu item. The presentation may include text, an image or both. A locale-dependent shortcut may be defined for each command.</p>
+<div class="figure">
+<img src="images/commands.png" alt="Command Presentations" /><p class="caption">Command Presentations</p>
+</div>
+<h4 id="button"><a href="#button"><span class="header-section-number">3.3.4.1</span> Button</a></h4>
+<p>As a rule, a button is used to represent the invocation of an action that changes data and/or navigates within the screen flow.</p>
+<h4 id="link"><a href="#link"><span class="header-section-number">3.3.4.2</span> Link</a></h4>
+<p>As a rule, a link is used to represent the invocation of an action that navigates somewhere without changing any data.</p>
+<h4 id="menu-item"><a href="#menu-item"><span class="header-section-number">3.3.4.3</span> Menu Item</a></h4>
+<p>As a rule, a menu item is used to represent the invocation of an action that starts one or more screen flows.</p>
+<h3 id="message-area"><a href="#message-area"><span class="header-section-number">3.3.5</span> Message Area</a></h3>
+<p>A message is an informational text with a category. Possible categories are Information, Warning, Error and Severe Error. A message area displays a message in a different format according to category. There is one message area per workspace. It is not visible when there are no messages to display.</p>
+<h3 id="group"><a href="#group"><span class="header-section-number">3.3.6</span> Group</a></h3>
+<p>A group is a collection of user interface elements (controls and/or components). It may be represented as a box with an optional label.</p>
+<p>A group may be defined as non-breaking, so that elements will always be rendered together (in same column).</p>
+<p>Groups may be nested.</p>
+<div class="figure">
+<img src="images/group.png" alt="Group" /><p class="caption">Group</p>
+</div>
+<h2 id="components"><a href="#components"><span class="header-section-number">3.4</span> Components</a></h2>
+<p>Components are user interface elements composed of controls and/or other components. They may define their own events. They are implemented by composing them from controls and adding behaviour and one or more pre-defined layouts.</p>
+<h3 id="user-session-view"><a href="#user-session-view"><span class="header-section-number">3.4.1</span> User Session View</a></h3>
+<p>The session view is a component which contains a read-only text field with the user’s name, an optional label indicating that the user is logged in and a logout command.</p>
+<p>If no other authentication is provided, the login screen will be displayed before the desktop is displayed. The logout command will be issued when the desktop is closed. The user’s name may be displayed in the status bar or not displayed at all.</p>
+<h3 id="amount"><a href="#amount"><span class="header-section-number">3.4.2</span> Amount</a></h3>
+<p>The amount component is a number field with additional capabilities for input.</p>
+<p>Input abbreviations are possible. The default abbreviations are:</p>
+<pre><code>H - Hundreds
+T - Thousands
+M - Millions
+B - Billions</code></pre>
+<p>It is possible to enter both input abbreviations and decimal places. For example 1H.34 may be entered to represent 100.34.</p>
+<p>It is possible, but not necessary, to enter separators.</p>
+<p>If decimal places are configured, but not entered, they are assumed to be zero.</p>
+<p>Decimal places may be entered as fractions, so for example twelve and three quarters can be entered as either:</p>
+<pre><code>12.75 or
+12 3/4</code></pre>
+<p>Any fractions are supported.</p>
+<p>The characters allowed as input abbreviations are locale-dependent.</p>
+<h3 id="currency-amount"><a href="#currency-amount"><span class="header-section-number">3.4.3</span> Currency Amount</a></h3>
+<p>A currency amount component consists of an amount and a two-column choice for currency. Formatting may change according to selected currency. (Example formats: 0 JPY, 0.00 GBP). Formatting must cater for countries with massive inflation.</p>
+<p>The data for the two column currency choice (Currency abbreviation and localized name) is provided by a service. (See Choice description above.)</p>
+<p>Amount and currency are accessible separately so that they may be bound to different complex currency amount types in the service. (In some of those the currency is a simple value and in some it is based on an enumeration type.)</p>
+<div class="figure">
+<img src="images/currency_amount.png" alt="Currency Amount" /><p class="caption">Currency Amount</p>
+</div>
+<h3 id="partner-id"><a href="#partner-id"><span class="header-section-number">3.4.4</span> Partner ID</a></h3>
+<p>The Partner ID component provides a collection of alternative input formats for Partner IDs. Each input format is a group of fields. The input format is toggled by a command. The component is functionally equivalent to a component which would display all the different input formats at once without the possibility to switch between them. Each input format may be bound to a separate simple or complex type. The component may only be bound to a service which supports all formats.</p>
+<h3 id="account"><a href="#account"><span class="header-section-number">3.4.5</span> Account</a></h3>
+<p>The account component provides a collection of alternative input formats for account numbers, such as IBAN, bank account number or credit card number. Each input format is a group of fields. Input format is toggled by a command. The component is functionally equivalent to a component which would display all the different input formats at once without the possibility to switch between them. Each input format may be bound to a separate simple or complex type. The component may only be bound to a service which supports all formats.</p>
+<h3 id="date-1"><a href="#date-1"><span class="header-section-number">3.4.6</span> Date</a></h3>
+<p>The date component allows the user to enter a date in abbreviated form which will be converted to a regular date. Default is current date, if left blank.</p>
+<p>The default input abbreviations are:</p>
+<pre><code>D - Days
+W - Weeks
+M - Months
+Y - Years
+T - Tomorrow</code></pre>
+<p>Examples of valid input abbreviations are:</p>
+<pre><code>2D - Two days
+6M - Six months
+1Y - One year</code></pre>
+<p>The meaning of the input abbreviations may be different per tenant, per business process and per location.</p>
+<p>Date formatting and the characters allowed as input abbreviations are locale-dependent.</p>
+<h3 id="frequency"><a href="#frequency"><span class="header-section-number">3.4.7</span> Frequency</a></h3>
+<p>The Frequency component consists of two choices, one to select a period and one to select one or more month(s), and a number field to enter a day number. The month choice is only enabled when periods quarterly, half yearly or yearly are selected. The day number field is not enabled when period daily is selected. The day numbers must be in the range of 1 to 31 except where stated otherwise in the table below.</p>
+<table>
+<caption>Frequencies</caption>
+<thead>
+<tr class="header">
+<th align="left">Period</th>
+<th align="left">Month(s)</th>
+<th align="left">Day number range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Yearly</td>
+<td align="left">Jan</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">…</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Dec</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left">Half yearly</td>
+<td align="left">Jan+Jul</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Feb+Aug</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mar+Sep</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Apr+Oct</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">May+Nov</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Jun+Dec</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left">Quarterly</td>
+<td align="left">Jan+Apr+Jul+Oct</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Feb+May+Aug+Nov</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mar+Jun+Sep+Dec</td>
+<td align="left">01-31</td>
+</tr>
+<tr class="odd">
+<td align="left">Monthly</td>
+<td align="left"></td>
+<td align="left">01-31</td>
+</tr>
+<tr class="even">
+<td align="left">Weekly</td>
+<td align="left"></td>
+<td align="left">01-07 (Monday to Sunday)</td>
+</tr>
+<tr class="odd">
+<td align="left">Fortnightly</td>
+<td align="left"></td>
+<td align="left">01-14 (08 is Monday in the second week)</td>
+</tr>
+<tr class="even">
+<td align="left">Daily</td>
+<td align="left"></td>
+<td align="left">No day number is required</td>
+</tr>
+</tbody>
+</table>
+<h3 id="table-view"><a href="#table-view"><span class="header-section-number">3.4.8</span> Table View</a></h3>
+<p>The table view is a component to view tabular data.</p>
+<p>It provides configurable pagination for large result sets.</p>
+<p>Sorting and filtering may be done locally or by the service provider sourcing the data, in which case the criteria will be passed to the service. If done locally, sorting and filtering is based on the data as it was provided by the service. There is no default mechanism to retrieve paged data.</p>
+<p>The table may be sorted locally by any column. The sort order may be reset and saved. The sort order for text is locale-dependent. A column which contains characters from more than one character set (for example Arabic and Latin) can only be sorted in Unicode sort order by this component. If other sort orders for such columns are required, they must be provided by the service provider.</p>
+<p>The table may be filtered locally by any column. In order to support this, a Table View may contain an additional collapsible filter row between header and content. This row contains an editable text field for each column where the user may enter filter expressions. With each character that the user enters, the table is restricted to the rows matching the filter. Valid filter expressions are:</p>
+<table>
+<caption>Table Filters</caption>
+<col width="26%" />
+<col width="73%" />
+<thead>
+<tr class="header">
+<th align="left">Filter</th>
+<th align="left">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">text or text*</td>
+<td align="left">Rows where column contents starts with text</td>
+</tr>
+<tr class="even">
+<td align="left">* or blank</td>
+<td align="left">All Rows</td>
+</tr>
+<tr class="odd">
+<td align="left">*text or *text*</td>
+<td align="left">Rows where column content contains text at any position</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;text, &gt;text, &lt;=text, &gt;=text</td>
+<td align="left">Rows where column content is higher or lower than text</td>
+</tr>
+<tr class="odd">
+<td align="left">=text</td>
+<td align="left">Rows where column content exactly matches text</td>
+</tr>
+<tr class="even">
+<td align="left">?text, (???text)</td>
+<td align="left">Rows where column content starting at the second position (fourth position) starts with text</td>
+</tr>
+</tbody>
+</table>
+<p>The user may enter more than one filter expression separated by blanks, in which case the effects are combined (logical AND). Filters may be reset and saved.</p>
+<p>Cells may contain fields, choices or commands. Commands in a row will act on, or use as context, the data contained in that row. Commands in a table may be represented as data that is displayed as hyperlink.</p>
+<div class="figure">
+<img src="images/table_view.png" alt="Table View with and without filter row" /><p class="caption">Table View with and without filter row</p>
+</div>
+<p>Option 1: Running Totals Column, with optional grand total field.</p>
+<p>Option 2: Counter Column.</p>
+<p>Option 3: The collection of visible commands on a screen or section may change depending on the content of a selected data item/row.</p>
+<h3 id="table-editor"><a href="#table-editor"><span class="header-section-number">3.4.9</span> Table Editor</a></h3>
+<p>The table editor component serves to insert, update and delete tabular data on a single screen.</p>
+<p>The component offers a means to select a row (by cursor, link or with a radio button in front of every row).</p>
+<p>The user may edit each cell by selecting it. The component raises events that indicate when a user begins editing a row and when he or she changes the current row.</p>
+<div class="figure">
+<img src="images/table_editor.png" alt="Table Editor" /><p class="caption">Table Editor</p>
+</div>
+<p>The component offers the following commands:</p>
+<ul>
+<li>Delete: raises a delete event, so that a service may delete the data. Deletes the currently selected row.</li>
+<li>New: inserts a new row below the currently selected row or at the end of the table, if no row is selected.</li>
+<li>Copy: copies the currently selected row into a new row below the selected row.</li>
+<li>Up/Down: raises a move event, so that a service may interpret this as a change in order. Moves a row up or down in the table.</li>
+</ul>
+<h3 id="tree-table-view"><a href="#tree-table-view"><span class="header-section-number">3.4.10</span> Tree Table View</a></h3>
+<p>The Tree Table View is a Table View where the elements in the first column are indented according to their level in a hierarchy. Icons indicate whether a level in the hierarchy has items below it. Clicking on those icons expands or collapses the rows on the lower level.</p>
+<div class="figure">
+<img src="images/tree_table.png" alt="Tree Table View Editor" /><p class="caption">Tree Table View Editor</p>
+</div>
+<p>The Tree Table View may be used as a tree view if it has only one column.</p>
+<h3 id="tree-table-editor"><a href="#tree-table-editor"><span class="header-section-number">3.4.11</span> Tree Table Editor</a></h3>
+<p>The Tree Table Editor is a Table Editor where the elements in the first column are indented according to their level in a hierarchy. Plus and minus icons indicate whether a level in the hierarchy has items below it. Clicking on those icons expands or collapses the rows on the lower level.</p>
+<p>The Tree Table Editor provides commands to change the level in the hierarchy of an item.</p>
+<h3 id="message-box"><a href="#message-box"><span class="header-section-number">3.4.12</span> Message Box</a></h3>
+<p>The message box component consists of a read-only text field with a label indicating the category of the message (4 categories). Depending on the category, the applicable commands (OK, Ignore, Abort, Retry, Cancel) are provided.</p>
+<div class="figure">
+<img src="images/message.png" alt="Message Box" /><p class="caption">Message Box</p>
+</div>
+<p>Messages may contain a link to a screen flow.</p>
+<p>The component provides an optional boolean choice to confirm that the message has been read.</p>
+<p>The component provides an optional timer to close the message box after a configured amount of time has elapsed.</p>
+<h3 id="notification-list"><a href="#notification-list"><span class="header-section-number">3.4.13</span> Notification List</a></h3>
+<p>The notification list is a table view to display notifications. Default sort order is latest first. User may sort by any column.</p>
+<h3 id="notification"><a href="#notification"><span class="header-section-number">3.4.14</span> Notification</a></h3>
+<p>The notification component serves to notify the user of an event. Notifications come in three priorities:</p>
+<ul>
+<li>Priority 1 – Notifications are displayed as a pop up,</li>
+<li>Priority 2 – Notifications are indicated, even if the notification list is hidden,</li>
+<li>Priority 3 – Notifications are displayed on notification list only.</li>
+</ul>
+<p>Priority 1 notifications are displayed as popup but don’t take the focus, so that a user may finish his or her current work without interruption. Notifications may contain a link to a screen flow.</p>
+<h3 id="calendar"><a href="#calendar"><span class="header-section-number">3.4.15</span> Calendar</a></h3>
+<p>The calendar component displays a locale-dependent calendar. It may be attached to a date field. The user may pick a date which is entered into the date field the calendar is attached to when the calendar is closed. Business days may be shown in a different design. Different business day calendars may be configured and used dependent on any context data, such as locale, group of branches or currency.</p>
+<div class="figure">
+<img src="images/calendar.png" alt="Calendar" /><p class="caption">Calendar</p>
+</div>
+<h3 id="calculator"><a href="#calculator"><span class="header-section-number">3.4.16</span> Calculator</a></h3>
+<p>The calculator component provides a locale-dependent calculator/adding machine. It may be attached to a number field (which may be part of a currency amount control). It is represented by a command, which opens the calculator, where the user may calculate an amount. When the user closes the calculator, the calculated amount is entered into the field the calculator is attached to.</p>
+<h3 id="search-criteria-editor"><a href="#search-criteria-editor"><span class="header-section-number">3.4.17</span> Search Criteria Editor</a></h3>
+<p>The Search Criteria Editor component consists of search criteria entry fields and commands to start the search and to reset the criteria. It displays the search results in a Search Result List. Search Criteria may be defined by tenant. Search criteria syntax will be defined by the search service.</p>
+<p>The search criteria entry fields are a variable length list of fields which must match the search service request message. If fields are optional in the search service request message, they need not be defined in the screen either. A tenant customizable search will be implemented in such a way that a service with a large number of (optional) search criteria is provided and the ones actually used are defined in a configuration file per tenant. Additional fields are implemented using the mechanisms defined for augmented data.</p>
+<p>In text fields the user may enter search criteria using wildcards, where the * character represents one or more characters and the ? character represents a single character. The wildcard characters may be different for different locales.</p>
+<h3 id="selection-list"><a href="#selection-list"><span class="header-section-number">3.4.18</span> Selection List</a></h3>
+<p>The Selection List component is a Table View with a Selection Bar (see section on Default Command Bars).</p>
+<p>List columns may be defined by tenant using the same mechanism described above for the search criteria.</p>
+<p>One or multiple rows may be selected at a time. When multiple rows are selected and a command is issued, the screen flow or sub flow triggered by that command is repeated once for each row selected.</p>
+<h3 id="detail-view"><a href="#detail-view"><span class="header-section-number">3.4.19</span> Detail View</a></h3>
+<p>The Detail View component provides a view for a single data item. Fields may be defined by tenant using the same mechanism described above for the search criteria.</p>
+<h3 id="detail-editor"><a href="#detail-editor"><span class="header-section-number">3.4.20</span> Detail Editor</a></h3>
+<p>The Detail Editor component provides an editor for a single data item. Fields may be defined by tenant using the same mechanism described above for the search criteria.</p>
+<h3 id="default-command-bars"><a href="#default-command-bars"><span class="header-section-number">3.4.21</span> Default Command Bars</a></h3>
+<p>Several command bars are provided as components to support standard screen flow behaviour as defined by Screen Flow Patterns.</p>
+<h4 id="cancel-bar"><a href="#cancel-bar"><span class="header-section-number">3.4.21.1</span> Cancel Bar</a></h4>
+<ul>
+<li>Cancel: Closes the current screen and returns to the previous one.</li>
+</ul>
+<h4 id="confirmation-bar"><a href="#confirmation-bar"><span class="header-section-number">3.4.21.2</span> Confirmation Bar</a></h4>
+<ul>
+<li>Cancel: Sends a cancel event to the currently running action, if the action is marked as cancellable.</li>
+<li>Submit: Calls the service submit operation and moves on to the next screen, if there is one.</li>
+</ul>
+<h4 id="view-bar"><a href="#view-bar"><span class="header-section-number">3.4.21.3</span> View Bar</a></h4>
+<ul>
+<li>Cancel: Closes the current screen and returns to the previous one.</li>
+<li>Edit, Opens Detail Editor with data currently displayed.</li>
+<li>New: Creates new data item of the type currently displayed, opens Detail Editor.</li>
+<li>Copy: Creates a copy of the currently displayed data item, opens Detail Editor.</li>
+<li>Delete: Deletes currently displayed data item, after confirmation.</li>
+</ul>
+<h4 id="selection-bar"><a href="#selection-bar"><span class="header-section-number">3.4.21.4</span> Selection Bar</a></h4>
+<ul>
+<li>View: Opens Detail View with data from selected row.</li>
+<li>Edit: Opens Detail Editor with data from selected row.</li>
+<li>New: Creates new data item, opens Detail Editor.</li>
+<li>Copy: Creates a copy of the selected data item, opens Detail Editor.</li>
+<li>Delete: Deletes selected data item, after confirmation.</li>
+</ul>
+<h4 id="edit-bar"><a href="#edit-bar"><span class="header-section-number">3.4.21.5</span> Edit Bar</a></h4>
+<ul>
+<li>Previous: Goes to the previous screen.</li>
+<li>Next: Goes to the next screen, defined as the default transition.</li>
+<li>Previous and Next are only enabled if the previous and next screens can be clearly determined from the screen flow.</li>
+<li>Cancel: Sends a cancel event to the currently running action, if the action is marked as cancellable.</li>
+<li>Close: Closes the screen flow, with the resulting behaviour optionally configured to prompt or not to prompt the user or to invoke custom code.</li>
+<li>Reset: Resets all editable fields to their default value.</li>
+<li>Verify: Verifies the data entered by calling the service validation operation (if any).</li>
+<li>Submit. Calls the service submit operation and moves on to the next screen, if there is one.</li>
+<li>Submit and Next are disabled unless data has been entered into all mandatory fields.</li>
+</ul>
+<h3 id="screen-flow-progress-view"><a href="#screen-flow-progress-view"><span class="header-section-number">3.4.22</span> Screen Flow Progress View</a></h3>
+<p>The Screen Flow Progress View component shows the progress made in a screen flow. It may be represented as a progress indicator, a step list or a step bar.</p>
+<div class="figure">
+<img src="images/process.png" alt="Screen Flow Progress View" /><p class="caption">Screen Flow Progress View</p>
+</div>
+<h4 id="progress-indicator"><a href="#progress-indicator"><span class="header-section-number">3.4.22.1</span> Progress indicator</a></h4>
+<p>Graphical representation of percentage of steps completed.</p>
+<h4 id="step-list"><a href="#step-list"><span class="header-section-number">3.4.22.2</span> Step List</a></h4>
+<p>List of steps with optional check box to mark completion. Steps may optionally be navigable.</p>
+<h4 id="step-bar"><a href="#step-bar"><span class="header-section-number">3.4.22.3</span> Step Bar</a></h4>
+<p>Array of numbered labels with different style for completed, current and open steps. Steps may optionally be navigable.</p>
+<h3 id="many-from-many-selection"><a href="#many-from-many-selection"><span class="header-section-number">3.4.23</span> Many-from-many Selection</a></h3>
+<p>The Many-from-many Selection component provides two list boxes, one with values to choose from, one with values chosen, and commands to move selected values in both directions and to save selection.</p>
+<div class="figure">
+<img src="images/select_multiple.png" alt="Many-from-many Selection" /><p class="caption">Many-from-many Selection</p>
+</div>
+<h3 id="configuration-editor"><a href="#configuration-editor"><span class="header-section-number">3.4.24</span> Configuration Editor</a></h3>
+<p>The Configuration Editor component serves to edit configuration data. Configuration data is defined as name/value pairs where the values are editable. The name/value pairs may be organized in groups.</p>
+<h3 id="screen-flow-shortcut"><a href="#screen-flow-shortcut"><span class="header-section-number">3.4.25</span> Screen Flow Shortcut</a></h3>
+<p>The Screen Flow Shortcut component lets the user address a screen flow directly by entering a locale-specific mnemonic function code into an edit field or search for a screen flow. The search supports wildcards as defined for the Search Criteria Editor.</p>
+<p>This component may be integrated into the navigator or displayed on the toolbar.</p>
+<h3 id="augmented-data-view-and-editor"><a href="#augmented-data-view-and-editor"><span class="header-section-number">3.4.26</span> Augmented Data View and Editor</a></h3>
+<p>The Augmented Data View and Editor is a component to display and edit augmented data as defined by the tenant. This component supports the extensibility requirement.</p>
+<p>Some services will provide the capability to define additional fields per tenant. These will be defined per object. The definition includes a name, a type description, a length, a label (per locale), a validation rule and a content description (per locale). A service will be provided to support the configuration and retrieval of the definitions of all augmented data fields. The Augmented Data View and Editor component displays and provides the editing capability for this data. For each supported field type a control matching its type definition is provided.</p>
+<h3 id="graph-view"><a href="#graph-view"><span class="header-section-number">3.4.27</span> Graph View</a></h3>
+<p>The Graph View component serves to display tabular data in a variety of graphical formats (bar chart, pie chart, line diagram etc.)</p>
+<h3 id="image-view"><a href="#image-view"><span class="header-section-number">3.4.28</span> Image View</a></h3>
+<p>The Image View component allows to display, rotate, scale and invert an image. Supported formats are JPEG and PNG.</p>
+<h3 id="help-browser"><a href="#help-browser"><span class="header-section-number">3.4.29</span> Help Browser</a></h3>
+<p>The Help Browser Component display help in HTML format. It is composed of a tree view showing help topics with a linked text field, showing the help text.</p>
+<p>Help texts may exist in different languages and the component will select the correct translation based on the user’s preferred language.</p>
+<p>Context-specific help may be linked to the following elements: control, component, screen, screen-flow and application.</p>
+<h3 id="desktop-layout-bar"><a href="#desktop-layout-bar"><span class="header-section-number">3.4.30</span> Desktop Layout Bar</a></h3>
+<p>The Desktop Layout Bar component allows the user to switch between different desktop layouts rapidly. The bar includes four commands which each represent a standard Desktop layout:</p>
+<ol style="list-style-type: decimal">
+<li>Navigation, primary workspace and secondary workspace.</li>
+<li>Navigation and primary workspace.</li>
+<li>Primary workspace and secondary workspace.</li>
+<li>Primary workspace only.</li>
+</ol>
+<h3 id="desktop-configuration-editor"><a href="#desktop-configuration-editor"><span class="header-section-number">3.4.31</span> Desktop Configuration Editor</a></h3>
+<p>The Desktop Configuration Editor component lets the user edit the user-configurable layout properties of desktop and workspaces, namely font sizes, colours and whether sections in a workspace are displayed as sections or tabs. The user may save these settings for the desktop and per workspace.</p>
+<h3 id="value-selector"><a href="#value-selector"><span class="header-section-number">3.4.32</span> Value Selector</a></h3>
+<p>The Value Selector component lets the user select the value for a field from a list. It consists of a field and a command which opens a multi-column drop down list for value selection. One column is bound to the field. The search is dynamic i.e. based on a service. It is not a pre-defined list of values.</p>
+<p>The Value Selector component may be used as an alternative to the value selection screen flow pattern when only one search criterion is required.</p>
+<h2 id="binding"><a href="#binding"><span class="header-section-number">3.5</span> Binding</a></h2>
+<p>Each control or component may be bound to a data item from the object model.</p>
+<h2 id="validation"><a href="#validation"><span class="header-section-number">3.6</span> Validation</a></h2>
+<p>Validation may relate to a single field or a validation group.</p>
+<p>Minimal schema-based validation is always performed.</p>
+<p>Simple additional validation may be defined by the developer by selecting a pre-defined validation.</p>
+<p>Complex validation is defined in the underlying service, based on screen, component, validation group or field and accessed via a service call. If field related error messages from a service call are to be displayed, they must be provided in a list in the response, each message and/or message code together with an expression describing the field in the request message that it relates to. If field-specific errors are provided, the fields that caused an error may be highlighted and the error text may be displayed next to them (depending on layout).</p>
+<h2 id="internationalization"><a href="#internationalization"><span class="header-section-number">3.7</span> Internationalization</a></h2>
+<p>The following features are required:</p>
+<ul>
+<li>Unicode character set.</li>
+<li>International date and time formats.</li>
+<li>International and currency-dependent number formats including lakhs and crores.</li>
+<li>Right-to-left edit fields and right-to-left screen layout support, specifically for Arabic. Note that text-fields need to be bi-directional for this, because both directions may be displayed / edited in the same field.</li>
+<li>Chinese, Japanese and Korean language support, left to right only.</li>
+</ul>
+<h2 id="printing"><a href="#printing"><span class="header-section-number">3.8</span> Printing</a></h2>
+<p>Using a general Print Screen command the content of each individual screen may be printed. This may be disabled for certain screens such as those showing a client signature.</p>
+<h2 id="miscellaneous"><a href="#miscellaneous"><span class="header-section-number">3.9</span> Miscellaneous</a></h2>
+<h3 id="tab-sequence"><a href="#tab-sequence"><span class="header-section-number">3.9.1</span> Tab-Sequence</a></h3>
+<p>The Tab-sequence may be configured by the developer. It may be the default sequence, which is left to right/top-down or right to left/top-down, depending on screen direction, or a numbered sequence.</p>
+<h3 id="short-cuts"><a href="#short-cuts"><span class="header-section-number">3.9.2</span> Short-Cuts</a></h3>
+<p>Short-Cuts may be configured by the developer. One letter of the command label serves as shortcut-key (Alt-letter), alternatively a function-key may be defined for the same purpose. Short-Cuts are language-dependent. One command per screen is the default command, which is executed when the user presses Enter.</p>
+<h3 id="tool-tips"><a href="#tool-tips"><span class="header-section-number">3.9.3</span> Tool Tips</a></h3>
+<p>Each control and component may have a language-dependent tool tip associated with it, which is displayed when the mouse pointer hovers over an area distinctly representing the element.</p>
+<h3 id="branding"><a href="#branding"><span class="header-section-number">3.9.4</span> Branding</a></h3>
+<p>The tenant may change the look and feel of the application by configuring the following elements:</p>
+<ul>
+<li>optional Splash screen,</li>
+<li>title of application,</li>
+<li>any property defined in style sheet.</li>
+</ul>
+<h1 id="user-interface-patterns"><a href="#user-interface-patterns"><span class="header-section-number">4</span> USER INTERFACE PATTERNS</a></h1>
+<h2 id="screen-patterns"><a href="#screen-patterns"><span class="header-section-number">4.1</span> Screen Patterns</a></h2>
+<p>This section lists some common screen patterns. They are used below in describing common screen flow patterns.</p>
+<h3 id="search-screen"><a href="#search-screen"><span class="header-section-number">4.1.1</span> Search Screen</a></h3>
+<p>Combination of a Search Criteria Editor and a Selection List showing the results of the search.</p>
+<h3 id="masterdetail-screen"><a href="#masterdetail-screen"><span class="header-section-number">4.1.2</span> Master/Detail Screen</a></h3>
+<p>Combination of a Detail View or Detail Editor with an attached list of dependent data items, displayed as a Table View (read-only) or Selection List (editable).</p>
+<h3 id="dashboard"><a href="#dashboard"><span class="header-section-number">4.1.3</span> Dashboard</a></h3>
+<p>Combination of a Detail View or Detail Editor with multiple attached lists of dependent data items, displayed as Selection Lists.</p>
+<h3 id="listdetail-screen"><a href="#listdetail-screen"><span class="header-section-number">4.1.4</span> List/Detail Screen</a></h3>
+<p>Combination of a Selection List and an attached Detail View or Detail Editor showing the details of the item currently selected. Commands to add a new item to the list, copy an existing one and to edit the currently selected one.</p>
+<h2 id="screen-flow-patterns"><a href="#screen-flow-patterns"><span class="header-section-number">4.2</span> Screen Flow Patterns</a></h2>
+<p>This sections lists the most common screen flow patterns we have encountered. They use the screens listed above.</p>
+<h3 id="basic-inquiry-edit"><a href="#basic-inquiry-edit"><span class="header-section-number">4.2.1</span> Basic Inquiry / Edit</a></h3>
+<p>Implements a basic inquiry/edit flow which consists of a Search Screen and a basic View/Edit screen flow. Includes a Detail View Screen, a Detail Editor Screen, an optional Referrals Screen and a Confirm Delete Screen with commands/actions to view, edit, copy, delete and add a new data item.</p>
+<div class="figure">
+<img src="images/sfp-basic-inquiry-edit.png" alt="Basic Inquiry / Edit" /><p class="caption">Basic Inquiry / Edit</p>
+</div>
+<h3 id="detail-view-1"><a href="#detail-view-1"><span class="header-section-number">4.2.2</span> Detail View</a></h3>
+<p>Screen flow including a single Detail View Screen. Most basic screen flow. May be used as sub-flow or to display data accessible directly from the context.</p>
+<div class="figure">
+<img src="images/sfp-detail-view.png" alt="Detail View" /><p class="caption">Detail View</p>
+</div>
+<h3 id="detail-viewedit"><a href="#detail-viewedit"><span class="header-section-number">4.2.3</span> Detail View/Edit</a></h3>
+<p>Basic View/Edit screen flow. Includes a Detail View Screen, a Detail Editor Screen, an optional Referrals Screen and a Confirm Delete Screen with commands/actions to view, edit, copy, delete and add a new data item.</p>
+<div class="figure">
+<img src="images/sfp-detail-view-edit.png" alt="Detail View/Edit" /><p class="caption">Detail View/Edit</p>
+</div>
+<h3 id="selection-list-1"><a href="#selection-list-1"><span class="header-section-number">4.2.4</span> Selection List</a></h3>
+<p>Implements a basic inquiry/edit flow which consists of a Selection List and an optional Search Criteria Editor on one screen and a Detail View/Edit sub-flow as described above.</p>
+<div class="figure">
+<img src="images/sfp-selection-list.png" alt="Selection List" /><p class="caption">Selection List</p>
+</div>
+<h3 id="basic-inquiry-edit-variant"><a href="#basic-inquiry-edit-variant"><span class="header-section-number">4.2.5</span> Basic Inquiry / Edit Variant</a></h3>
+<p>Implements a variant of the basic inquiry/edit flow which has the Selection List and the Search Criteria Editor on separate screens plus a Detail View/Edit sub-flow as described above.</p>
+<div class="figure">
+<img src="images/sfp-basic-inquiry-edit-variant.png" alt="Basic Inquiry / Edit Variant" /><p class="caption">Basic Inquiry / Edit Variant</p>
+</div>
+<h3 id="basic-drill-down"><a href="#basic-drill-down"><span class="header-section-number">4.2.6</span> Basic Drill-Down</a></h3>
+<p>Contains a Detail View or Editor which includes one or more Selection Lists, which may be connected to other Detail Views/Editors, which again may contain Selection Lists and so on.</p>
+<div class="figure">
+<img src="images/sfp-basic-drill-down.png" alt="Basic Drill-Down" /><p class="caption">Basic Drill-Down</p>
+</div>
+<h3 id="multi-step-edit-flow"><a href="#multi-step-edit-flow"><span class="header-section-number">4.2.7</span> Multi-Step Edit Flow</a></h3>
+<p>Screen flow where a sequence of screens, connected by next and previous commands, serves to edit a data item. Could also be represented by a single Edit View Screen with sections, but then the sequence would not be pre-defined. A confirmation screen at the end of the screen flow links back to each edit screen in the sequence.</p>
+<div class="figure">
+<img src="images/sfp-multi-step-edit.png" alt="Multi-Step Edit Flow" /><p class="caption">Multi-Step Edit Flow</p>
+</div>
+<h3 id="value-selection"><a href="#value-selection"><span class="header-section-number">4.2.8</span> Value Selection</a></h3>
+<p>Screen flow to select a single value from a selection list, displayed on a different screen.</p>
+<div class="figure">
+<img src="images/sfp-value-selection.png" alt="Value Selection" /><p class="caption">Value Selection</p>
+</div>
+<h3 id="detail-selection"><a href="#detail-selection"><span class="header-section-number">4.2.9</span> Detail Selection</a></h3>
+<p>Screen flow with a selection list on one screen where each row is linked to a detail view on another screen.</p>
+<div class="figure">
+<img src="images/sfp-detail-selection.png" alt="Detail Selection" /><p class="caption">Detail Selection</p>
+</div>
+<h1 id="common-use-cases"><a href="#common-use-cases"><span class="header-section-number">5</span> COMMON USE CASES</a></h1>
+<p>This section describes some common use cases, which are largely independent of specific functional requirements. They are thus good candidates for implementation by a framework.</p>
+<h2 id="application-start-up"><a href="#application-start-up"><span class="header-section-number">5.1</span> Application start-up</a></h2>
+<h3 id="description"><a href="#description"><span class="header-section-number">5.1.1</span> Description</a></h3>
+<p>The application starts and determines if the user needs to be authenticated.</p>
+<h3 id="basic-flow"><a href="#basic-flow"><span class="header-section-number">5.1.2</span> Basic Flow</a></h3>
+<ol style="list-style-type: decimal">
+<li><p>The use case starts when the user double-clicks the icon that represents the application or chooses the entry for the application from the start-menu.</p></li>
+<li><p>Upon start-up the client connects to the server.</p></li>
+<li><p>The system determines whether the user needs to be authenticated.</p></li>
+<li><p>If the user needs to be authenticated, the system determines the authentication procedure required for the application and calls it. If the user needs to be logged in, the system calls the login use case.</p></li>
+<li><p>The use case ends.</p></li>
+</ol>
+<h3 id="alternative-flows"><a href="#alternative-flows"><span class="header-section-number">5.1.3</span> Alternative Flows</a></h3>
+<p>2a) If the client cannot connect to the server, an error message is displayed. The user is offered the choice to retry or terminate the application. If the user chooses to retry, the client tries again to connect to the server. If the user chooses to terminate the application the use case ends.</p>
+<p>4a) If the user does not need to be authenticated, the Establish User Session use case is called with the option to establish a guest session.</p>
+<h2 id="login"><a href="#login"><span class="header-section-number">5.2</span> Login</a></h2>
+<h3 id="description-1"><a href="#description-1"><span class="header-section-number">5.2.1</span> Description</a></h3>
+<p>The user logs in to the application.</p>
+<h3 id="basic-flow-1"><a href="#basic-flow-1"><span class="header-section-number">5.2.2</span> Basic Flow</a></h3>
+<ol style="list-style-type: decimal">
+<li><p>The system starts the use case if it determines that a user is not authenticated and a login is required.</p></li>
+<li><p>The system prompts the user to enter the following data required for log in and provides options to log in, cancel or change the password:</p></li>
+</ol>
+<ul>
+<li>User Name</li>
+<li>Password</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>The user enters her or his user name and password and issues the login command.</p></li>
+<li><p>The system authenticates the user.</p></li>
+<li><p>The use case ends with the outcome “success”.</p></li>
+</ol>
+<h3 id="alternative-flows-1"><a href="#alternative-flows-1"><span class="header-section-number">5.2.3</span> Alternative Flows</a></h3>
+<p>3a) If the user chooses to cancel, the use case ends with the outcome “cancelled”.</p>
+<p>3b) If the user chooses change her or his password, the use case Change Password is called.</p>
+<p>4a) If the system can not authenticate the user, it returns an error message, which gives the reason for the failure. The user is given the choice to retry or abort the use case. If the user chooses to retry, the system prompts again for the log-in data. If the user chooses to abort, the use case ends with the outcome “failure”.</p>
+<h2 id="change-password"><a href="#change-password"><span class="header-section-number">5.3</span> Change Password</a></h2>
+<h3 id="description-2"><a href="#description-2"><span class="header-section-number">5.3.1</span> Description</a></h3>
+<p>The user changes her or his password.</p>
+<h3 id="basic-flow-2"><a href="#basic-flow-2"><span class="header-section-number">5.3.2</span> Basic Flow</a></h3>
+<ol style="list-style-type: decimal">
+<li><p>The use case starts when the user chooses to change her or his password in the Login use case.</p></li>
+<li><p>The system prompts the user to enter the following data required to change the password:</p></li>
+</ol>
+<ul>
+<li>Old Password</li>
+<li>New Password</li>
+<li>New Password Confirmation</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>The system tries to verify the old password and checks if the entries in the New Password and New Password Confirmation fields are the same.</p></li>
+<li><p>If the verification is successful, the system saves the new password to permanent storage.</p></li>
+<li><p>The use case ends with the outcome “success”.</p></li>
+</ol>
+<h3 id="alternative-flows-2"><a href="#alternative-flows-2"><span class="header-section-number">5.3.3</span> Alternative Flows</a></h3>
+<p>4a) If the system can not verify the old password, or the entries in the New Password and New Password Confirmation fields are not the same, the system displays the error and offers the user to retry or abort the use case. If the user chooses to retry, the Change Password screen is displayed again. If the user chooses to abort, the use case ends with the outcome “failure”.</p>
+<h2 id="establish-user-session"><a href="#establish-user-session"><span class="header-section-number">5.4</span> Establish user session</a></h2>
+<h3 id="description-3"><a href="#description-3"><span class="header-section-number">5.4.1</span> Description</a></h3>
+<p>A user session is started, the user’s roles are determined and the navigator is configured.</p>
+<h3 id="basic-flow-3"><a href="#basic-flow-3"><span class="header-section-number">5.4.2</span> Basic Flow</a></h3>
+<ol style="list-style-type: decimal">
+<li><p>The use case starts after the user has been authenticated.</p></li>
+<li><p>The system starts the user session.</p></li>
+<li><p>The system determines the user’s role or collection of roles. It looks up the screen flows defined for each role and it builds the navigator accordingly.</p></li>
+<li><p>The user picks a screen flow to be started.</p></li>
+<li><p>The system starts the screen flow.</p></li>
+<li><p>The use case ends when the user logs out.</p></li>
+</ol>
+<h3 id="alternative-flows-3"><a href="#alternative-flows-3"><span class="header-section-number">5.4.3</span> Alternative Flows</a></h3>
+<p>3a) If only one screen flow is configured for the user, that screen flow is started and no navigator is built.</p>
+<p>5a) If a screen flow cannot be started, the error is displayed and the user is given the choice to retry starting the screen flow or abort. If the user aborts, the screen flow is not started.</p>
+<p>6a) If the application terminates due to an error, the error is displayed and the user is given the choice to restart the application. The use case ends.</p>
+<h1 id="appendix-requirements-priorities"><a href="#appendix-requirements-priorities"><span class="header-section-number">6</span> APPENDIX: REQUIREMENTS PRIORITIES</a></h1>
+<p>This section provides a list of the requirements and their priority as seen by the business.</p>
+<p>Priorities are:</p>
+<ul>
+<li>Priority 1 - Cannot deliver the application without it.</li>
+<li>Priority 2 - Cannot deliver parts of the application without it.</li>
+<li>Priority 3 - Advantageous, but the first version of the application can be delivered without it.</li>
+</ul>
+<table>
+<caption>Requirements list with priorities</caption>
+<thead>
+<tr class="header">
+<th align="left">Requirement Name</th>
+<th align="left">Requirement Description</th>
+<th align="left">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Basic Structure</td>
+<td align="left">Basic structural elements of UI</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Controls</td>
+<td align="left">Basic user interface elements</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>Components</em></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">User Session View</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Amount</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Currency Amount</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Partner ID</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Account</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Date</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Frequency</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Table View</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Table View Filter</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Table View Options</td>
+<td align="left">Running Totals, Counter</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Expandable Table Editor</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Tree Table</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Message Box</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Notification Component</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Calendar Component</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Calculator Component</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">Search Criteria Editor</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Selection List</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Detail View</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Detail Editor</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Default Command Bars</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Screen Flow Progress View</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Many-from-many Selection</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Configuration Editor</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Screen Flow Shortcut</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Augmented Data View / Editor</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">Graph View</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Image View</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Help Browser</td>
+<td align="left"></td>
+<td align="left">2/3</td>
+</tr>
+<tr class="odd">
+<td align="left">Desktop Layout Bar</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">Desktop Configuration Editor</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>Miscellaneous</em></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Tab-Sequence</td>
+<td align="left">Tab-Sequence configurable</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Short-Cuts</td>
+<td align="left">Short-Cuts configurable</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Tool Tips</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Branding</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Binding</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Validation</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">Internationalization</td>
+<td align="left"></td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Printing</td>
+<td align="left"></td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left"><em>Screen Patterns</em></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Search Screen</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">Master/Detail Screen</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Dashboard</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">List/Detail Screen</td>
+<td align="left"></td>
+<td align="left">3</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
