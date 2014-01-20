@@ -2,6 +2,7 @@
 % Thomas Noetzold (tnoetzold@acm.org)
 % 28-02-2009, revised 18-12-2013
 
+
 # PREFACE
 
 This document is a sample specification for the cross-cutting user interface requirements of a (fictitious) business information system.
